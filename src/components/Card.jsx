@@ -7,6 +7,7 @@ export function Card({ card, onClick }) {
             backgroundColor: card.matched ? '#8fbc8f' : '#676767',
         }} onClick={() => onClick(card)}>
             {card.showing ? card.icon : '❔'}
+            <span style={{ fontSize: '0.3em' }}>{card.icon}</span>
         </button>
     )
 }

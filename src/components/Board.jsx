@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Card } from './Card'
 
 const icons = [
@@ -21,6 +21,7 @@ function getCards() {
 export function Board() {
     const [ cards, setCards ] = useState(getCards())
     const [ verifying, setVerifying ] = useState(false)
+    const restartButton = useRef(null)
 
     function onClick(card) {
         if (verifying || card.selected || card.matched) return
@@ -48,7 +49,8 @@ export function Board() {
             selecteds[0].matched = true
             selecteds[1].matched = true
             setCards([...cards])        
-            setVerifying(false)        
+            setVerifying(false)
+            checkWin()
         } else {
             setTimeout(() => {
                 selecteds[0].showing = false
@@ -59,9 +61,18 @@ export function Board() {
         }
     }, [verifying])
 
+    function checkWin() {
+        if (!cards.find(card => !card.matched)) {
+            setTimeout(() => restartButton.current.style.visibility = 'hidden', 0)
+            setTimeout(() => restartButton.current.style.visibility = '', 200)
+            setTimeout(() => restartButton.current.style.visibility = 'hidden', 400)
+            setTimeout(() => restartButton.current.style.visibility = '', 600)
+        }
+    }
+
     return (
         <div style={style}>
-            <button style={styleResetButton} onClick={() => setCards(getCards())}>Recomeçar</button>
+            <button ref={restartButton} style={styleResetButton} onClick={() => setCards(getCards())}>Recomeçar</button>
             {cards.map((card, index) => (
                 <Card key={index} card={card} onClick={onClick} />
             ))}
