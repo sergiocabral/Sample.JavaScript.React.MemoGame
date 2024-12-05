@@ -1,12 +1,15 @@
 import React from "react";
 import { Card } from "./Card.jsx";
 
+const icons = [
+  '😺', '🐶', '🤖', '🪲',
+  '🤡', '🐔', '💀', '🐋',
+]
+
 export function Board() {
   return (
     <div style={style}>
-      <Card>😺</Card>
-      <Card>🐶</Card>
-      <Card>🤖</Card>
+      {[...icons, ...icons].map((icon, index) => <Card key={index}>{icon}</Card>)}
     </div>
   )
 }
