@@ -1,9 +1,9 @@
 import React from "react";
 
-export function Card() {
+export function Card(props) {
   return (
     <button style={style}>
-      Card
+      {props.children}
     </button>
   )
 }
