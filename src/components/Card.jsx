@@ -1,9 +1,16 @@
 import React from 'react'
 
 export function Card({ children }) {
+    let showing = false
+
+    function onClick() {
+        showing = !showing
+        console.log('Clicou!')
+    }
+
     return (
-        <button style={style}>
-            {children}
+        <button style={style} onClick={onClick}>
+            {showing ? children : '❔'}
         </button>
     )
 }
