@@ -69,13 +69,9 @@ export function Board() {
     }
   }
 
-  useEffect(() => {
-    restartButton.current = document.querySelector('button')
-  }, [])
-
   return (
     <div style={style}>
-      <button style={styleResetButton} onClick={() => setCards(getCards())}>Recomeçar</button>
+      <button ref={restartButton} style={styleResetButton} onClick={() => setCards(getCards())}>Recomeçar</button>
       {cards.map(card => <Card key={card.index} card={card} onClick={onClick} />)}
     </div>
   )
