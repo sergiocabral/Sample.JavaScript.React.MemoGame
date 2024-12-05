@@ -2,14 +2,13 @@ import React from "react";
 
 export function Card({ card, onClick }) {
   return (
-    <button style={style} onClick={() => onClick(card)}>
+    <button style={{ ...style, backgroundColor: card.matched ? '#658e7d' : '#676767' }} onClick={() => onClick(card)}>
       {card.showing ? card.icon : '❔'}
     </button>
   )
 }
 
 const style = {
-  backgroundColor: '#676767',
   fontSize: '3em',
   display: 'flex',
   justifyContent: 'center',
