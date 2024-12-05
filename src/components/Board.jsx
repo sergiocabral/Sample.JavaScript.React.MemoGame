@@ -1,12 +1,23 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { Card } from "./Card.jsx";
 
-const icons = [
-  '😺', '🐶', '🤖', '🪲',
-  '🤡', '🐔', '💀', '🐋',
-]
-
 export function Board() {
+  const [restarted, restart] = useState()
+  const icons = useMemo(() => [
+    '😺', '🐶', '🤖', '🪲', '🤡', '🐔', '💀', '🐋',
+    '🐵', '🐷', '🐰', '🐦', '🐉', '🐢', '🐟', '🦈',
+    '🦋', '🐞', '🕷️', '🦄', '🍎', '🍇', '🍌', '🍉',
+    '⚽', '🏀', '🏈', '🎾', '🎸', '🎻', '🥁', '🎺',
+    '🚗', '🚕', '✈️', '🚢', '💡', '📱', '📸', '💻',
+    '⭐', '🌈', '🔥', '❄️', '🎨', '🎯', '🎮', '🎲',
+    '🥇', '🥈', '🥉', '🏅', '🎐', '🎎', '🎏', '🎀',
+    '🚀', '🚤', '🚲', '🛸', '🐩', '🐒', '🦔', '🐓',
+    '🐿️', '🦝', '🦢', '🦜', '🍔', '🍟', '🍕', '🌭',
+    '🌮', '🌯', '🍩', '🍪', '🌸', '🌻', '🌼', '🌺',
+    '🏠', '🏡', '🏢', '🏗️', '🚧', '🚨', '🚦', '🚥',
+    '⛺', '🗿', '🎃', '🎄', '🎋', '🎍', '🎆', '🎇',
+  ].sort(() => Math.random() - 0.5).slice(0, 8), [restarted]);
+
   const getCards = useCallback(() =>
     [...icons, ...icons]
       .sort(() => Math.random() - 0.5)
@@ -21,6 +32,10 @@ export function Board() {
   const [verifying, setVerifying] = useState(false)
   const [cards, setCards] = useState(getCards())
   const restartButton = useRef(null)
+
+  useEffect(() => {
+    setCards(getCards())
+  }, [restarted])
 
   function onClick(card) {
     if (verifying || card.selected || card.matched) return
@@ -70,7 +85,7 @@ export function Board() {
 
   return (
     <div style={style}>
-      <button ref={restartButton} style={styleResetButton} onClick={() => setCards(getCards())}>Recomeçar</button>
+      <button ref={restartButton} style={styleResetButton} onClick={() => restart(Math.random())}>Recomeçar</button>
       {cards.map(card => <Card key={card.index} card={card} onClick={onClick} />)}
     </div>
   )
