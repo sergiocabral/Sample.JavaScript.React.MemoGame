@@ -1,8 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { Board } from "./components/Board";
+import { ThemeContext, ThemeProvider } from "./contexts/ThemeContext.jsx";
 
 export function App() {
-  const [themeDark, setThemeDark] = useState(true)
+  return (
+    <ThemeProvider>
+      <Content />
+    </ThemeProvider>
+  )
+}
+
+function Content() {
+  const { themeDark, setThemeDark } = useContext(ThemeContext)
 
   return (
     <div style={style(themeDark)}>
@@ -12,7 +21,7 @@ export function App() {
           {themeDark ? '🌘' : '🌖'}
         </a>
       </div>
-      <Board themeDark={themeDark} />
+      <Board />
     </div>
   )
 }

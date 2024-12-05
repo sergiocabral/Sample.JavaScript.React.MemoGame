@@ -1,7 +1,10 @@
-import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useRef, useCallback, useMemo, useContext } from "react";
 import { Card } from "./Card.jsx";
+import { ThemeContext } from "../contexts/ThemeContext.jsx";
 
-export function Board({ themeDark }) {
+export function Board() {
+  const { themeDark } = useContext(ThemeContext)
+
   const [restarted, restart] = useState()
   const icons = useMemo(() => [
     '😺', '🐶', '🤖', '🪲', '🤡', '🐔', '💀', '🐋',
