@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 
 export function Card(props) {
-  let showing = false;
+  const [showing, show] = useState(false);
 
   function onClick() {
-    showing = !showing
-    console.log('Click:', showing)
+    show(!showing)
   }
 
   return (
