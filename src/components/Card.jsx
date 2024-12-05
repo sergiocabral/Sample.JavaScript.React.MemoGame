@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { ThemeContext } from '../contexts/ThemeContext'
 
-export function Card({ card, onClick, themeDark }) {
+export function Card({ card, onClick }) {
+    const { themeDark } = useContext(ThemeContext)
     return (
         <button style={style(themeDark, card.matched)} onClick={() => onClick(card)}>
             {card.showing ? card.icon : '❔'}

@@ -1,7 +1,9 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { Card } from './Card'
+import { ThemeContext } from '../contexts/ThemeContext';
 
-export function Board({ themeDark }) {
+export function Board() {
+    const { themeDark } = useContext(ThemeContext)
     const [ restarted, restart ] = useState(0)
     const icons = useMemo(() => [
         '🐳', '😈', '🤡', '🧐', '🤢', '🙊', '🐸', '🐼', '🐶', '🐱',
@@ -86,7 +88,7 @@ export function Board({ themeDark }) {
         <div style={style(themeDark)}>
             <button ref={restartButton} style={styleResetButton(themeDark)} onClick={() => restart(Math.random())}>Recomeçar</button>
             {cards.map((card, index) => (
-                <Card key={index} card={card} onClick={onClick} themeDark={themeDark} />
+                <Card key={index} card={card} onClick={onClick} />
             ))}
         </div>
     )
