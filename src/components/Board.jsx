@@ -40,22 +40,23 @@ export function Board() {
     useEffect(() => {
         if (!verifying) return
 
-        setTimeout(() => {
-            const selecteds = cards.filter(c => c.selected)
-        
-            selecteds[0].selected = false
-            selecteds[1].selected = false
-            if (selecteds[0].icon === selecteds[1].icon) {
-                selecteds[0].matched = true
-                selecteds[1].matched = true
-            } else {
+        const selecteds = cards.filter(c => c.selected)
+    
+        selecteds[0].selected = false
+        selecteds[1].selected = false
+        if (selecteds[0].icon === selecteds[1].icon) {
+            selecteds[0].matched = true
+            selecteds[1].matched = true
+            setCards([...cards])        
+            setVerifying(false)        
+        } else {
+            setTimeout(() => {
                 selecteds[0].showing = false
                 selecteds[1].showing = false
-            }
-    
-            setCards([...cards])        
-            setVerifying(false)
-        }, 1000)
+                setCards([...cards])        
+                setVerifying(false)        
+            }, 1000)
+        }
     }, [verifying])
 
     return (

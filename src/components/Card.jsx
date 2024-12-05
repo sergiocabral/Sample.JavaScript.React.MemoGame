@@ -2,7 +2,10 @@ import React, { useState } from 'react'
 
 export function Card({ card, onClick }) {
     return (
-        <button style={style} onClick={() => onClick(card)}>
+        <button style={{
+            ...style,
+            backgroundColor: card.matched ? '#8fbc8f' : '#676767',
+        }} onClick={() => onClick(card)}>
             {card.showing ? card.icon : '❔'}
         </button>
     )
