@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { Card } from "./Card.jsx";
 
-export function Board() {
+export function Board({ themeDark }) {
   const [restarted, restart] = useState()
   const icons = useMemo(() => [
     '😺', '🐶', '🤖', '🪲', '🤡', '🐔', '💀', '🐋',
@@ -84,28 +84,28 @@ export function Board() {
   }
 
   return (
-    <div style={style}>
-      <button ref={restartButton} style={styleResetButton} onClick={() => restart(Math.random())}>Recomeçar</button>
-      {cards.map(card => <Card key={card.index} card={card} onClick={onClick} />)}
+    <div style={style(themeDark)}>
+      <button ref={restartButton} style={styleResetButton(themeDark)} onClick={() => restart(Math.random())}>Recomeçar</button>
+      {cards.map(card => <Card key={card.index} card={card} onClick={onClick} themeDark={themeDark} />)}
     </div>
   )
 }
 
-const style = {
-  backgroundColor: '#2f2f2f',
+const style = themeDark => ({
+  backgroundColor: themeDark ? '#2f2f2f' : '#f0f0f0',
   flexGrow: 1,
   display: 'grid',
   gridTemplateColumns: 'repeat(4, 1fr)',
   gridTemplateRows: 'repeat(4, 1fr)',
   gap: '1em',
   padding: '1em',
-}
+})
 
-const styleResetButton = {
+const styleResetButton = themeDark => ({
   position: 'fixed',
   right: '1em',
   top: '1em',
   padding: '1em',
   borderRadius: '8px',
   cursor: 'pointer',
-}
+})
