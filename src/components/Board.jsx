@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Card } from "./Card.jsx";
 
 const icons = [
@@ -21,6 +21,7 @@ function getCards() {
 export function Board() {
   const [verifying, setVerifying] = useState(false)
   const [cards, setCards] = useState(getCards())
+  const restartButton = useRef(null)
 
   function onClick(card) {
     if (verifying || card.selected || card.matched) return
@@ -48,6 +49,7 @@ export function Board() {
       selecteds[1].matched = true
       setCards([...cards])
       setVerifying(false)
+      checkWin()
     } else {
       setTimeout(() => {
         selecteds[0].showing = false
@@ -57,6 +59,19 @@ export function Board() {
       }, 1000)
     }
   }, [verifying])
+
+  function checkWin() {
+    if (!cards.find(card => !card.matched)) {
+      setTimeout(() => restartButton.current.style.visibility = 'hidden', 0)
+      setTimeout(() => restartButton.current.style.visibility = '', 200)
+      setTimeout(() => restartButton.current.style.visibility = 'hidden', 400)
+      setTimeout(() => restartButton.current.style.visibility = '', 600)
+    }
+  }
+
+  useEffect(() => {
+    restartButton.current = document.querySelector('button')
+  }, [])
 
   return (
     <div style={style}>
