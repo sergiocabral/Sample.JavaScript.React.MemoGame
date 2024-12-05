@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Card } from "./Card.jsx";
 
 const icons = [
@@ -6,19 +6,18 @@ const icons = [
   '🤡', '🐔', '💀', '🐋',
 ]
 
-function getCards() {
-  return [...icons, ...icons]
-    .sort(() => Math.random() - 0.5)
-    .map((icon, index) => ({
-      index,
-      icon,
-      showing: false,
-      selected: false,
-      matched: false,
-    }))
-}
-
 export function Board() {
+  const getCards = useCallback(() =>
+    [...icons, ...icons]
+      .sort(() => Math.random() - 0.5)
+      .map((icon, index) => ({
+        index,
+        icon,
+        showing: false,
+        selected: false,
+        matched: false,
+      })))
+
   const [verifying, setVerifying] = useState(false)
   const [cards, setCards] = useState(getCards())
   const restartButton = useRef(null)
