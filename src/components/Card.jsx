@@ -1,9 +1,11 @@
 import React from "react";
 
 export function Card(props) {
+  const showing = false;
+
   return (
     <button style={style}>
-      {props.children}
+      {showing ? props.children : '❔'}
     </button>
   )
 }
