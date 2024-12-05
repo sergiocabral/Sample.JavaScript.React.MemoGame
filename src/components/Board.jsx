@@ -21,10 +21,16 @@ function getCards() {
 export function Board() {
     const [ cards, setCards ] = useState(getCards())
 
+    function onClick(card) {
+        const cardIndex = cards.findIndex(c => c.index === card.index)
+        cards[cardIndex].showing = !cards[cardIndex].showing
+        setCards([...cards])
+    }
+
     return (
         <div style={style}>
             {cards.map((card, index) => (
-                <Card key={index} card={card} />
+                <Card key={index} card={card} onClick={onClick} />
             ))}
         </div>
     )

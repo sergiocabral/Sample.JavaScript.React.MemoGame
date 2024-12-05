@@ -1,15 +1,9 @@
 import React, { useState } from 'react'
 
-export function Card({ card }) {
-    const [ showing, show ] = useState(false)
-
-    function onClick() {
-        show(!showing)
-    }
-
+export function Card({ card, onClick }) {
     return (
-        <button style={style} onClick={onClick}>
-            {showing ? card.icon : '❔'}
+        <button style={style} onClick={() => onClick(card)}>
+            {card.showing ? card.icon : '❔'}
         </button>
     )
 }
