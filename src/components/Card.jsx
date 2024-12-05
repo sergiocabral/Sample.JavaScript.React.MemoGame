@@ -1,10 +1,15 @@
 import React from "react";
 
 export function Card(props) {
-  const showing = false;
+  let showing = false;
+
+  function onClick() {
+    showing = !showing
+    console.log('Click:', showing)
+  }
 
   return (
-    <button style={style}>
+    <button style={style} onClick={onClick}>
       {showing ? props.children : '❔'}
     </button>
   )
