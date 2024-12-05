@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card } from './Card'
 
 const icons = [
@@ -20,12 +20,43 @@ function getCards() {
 
 export function Board() {
     const [ cards, setCards ] = useState(getCards())
+    const [ verifying, setVerifying ] = useState(false)
 
     function onClick(card) {
+        if (verifying || card.selected || card.matched) return
+
         const cardIndex = cards.findIndex(c => c.index === card.index)
         cards[cardIndex].showing = !cards[cardIndex].showing
+
+        cards[cardIndex].selected = true
+        const selecteds = cards.filter(c => c.selected)
+        if (selecteds.length === 2) {
+            setVerifying(true)
+        }
+
         setCards([...cards])
     }
+
+    useEffect(() => {
+        if (!verifying) return
+
+        setTimeout(() => {
+            const selecteds = cards.filter(c => c.selected)
+        
+            selecteds[0].selected = false
+            selecteds[1].selected = false
+            if (selecteds[0].icon === selecteds[1].icon) {
+                selecteds[0].matched = true
+                selecteds[1].matched = true
+            } else {
+                selecteds[0].showing = false
+                selecteds[1].showing = false
+            }
+    
+            setCards([...cards])        
+            setVerifying(false)
+        }, 1000)
+    }, [verifying])
 
     return (
         <div style={style}>
