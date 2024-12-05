@@ -6,7 +6,6 @@ export function Card({ card, onClick }) {
     return (
         <button style={style(themeDark, card.matched)} onClick={() => onClick(card)}>
             {card.showing ? card.icon : '❔'}
-            <span style={{ fontSize: '0.3em' }}>{card.icon}</span>
         </button>
     )
 }
